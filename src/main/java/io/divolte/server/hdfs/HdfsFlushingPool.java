@@ -17,18 +17,17 @@
 package io.divolte.server.hdfs;
 
 import io.divolte.server.AvroRecordBuffer;
+import io.divolte.server.DivolteSchema;
 import io.divolte.server.SchemaRegistry;
 import io.divolte.server.config.ValidatedConfiguration;
 import io.divolte.server.processing.ProcessingPool;
 
-import java.util.Objects;
-
 import javax.annotation.ParametersAreNonnullByDefault;
-
-import org.apache.avro.Schema;
+import java.util.Objects;
 
 @ParametersAreNonnullByDefault
 public final class HdfsFlushingPool extends ProcessingPool<HdfsFlusher, AvroRecordBuffer>{
+
     public HdfsFlushingPool(final ValidatedConfiguration vc,
                             final String name,
                             final SchemaRegistry schemaRegistry) {
@@ -41,12 +40,12 @@ public final class HdfsFlushingPool extends ProcessingPool<HdfsFlusher, AvroReco
 
     public HdfsFlushingPool(final ValidatedConfiguration vc,
                             final String name,
-                            final Schema schema,
+                            final DivolteSchema schema,
                             final int numThreads,
                             final int maxQueueSize) {
         super(numThreads,
               maxQueueSize,
               String.format("Hdfs Flusher [%s]", Objects.requireNonNull(name)),
-              () -> new HdfsFlusher(Objects.requireNonNull(vc), name, Objects.requireNonNull(schema)));
+              () -> new HdfsFlusher(Objects.requireNonNull(vc), name, Objects.requireNonNull(schema).schema));
     }
 }

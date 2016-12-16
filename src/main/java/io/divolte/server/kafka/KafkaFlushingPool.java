@@ -33,7 +33,7 @@ public class KafkaFlushingPool extends ProcessingPool<KafkaFlusher, AvroRecordBu
 
     private final Producer<DivolteIdentifier, AvroRecordBuffer> producer;
 
-    public KafkaFlushingPool(final ValidatedConfiguration vc, final String name, final SchemaRegistry ignored) {
+    public KafkaFlushingPool(final ValidatedConfiguration vc, final String name, final SchemaRegistry schemaRegistry) {
         this(
                 name,
                 vc.configuration().global.kafka.threads,
@@ -41,7 +41,10 @@ public class KafkaFlushingPool extends ProcessingPool<KafkaFlusher, AvroRecordBu
                 vc.configuration().getSinkConfiguration(name, KafkaSinkConfiguration.class).topic,
                 new KafkaProducer<>(vc.configuration().global.kafka.producer,
                         new DivolteIdentifierSerializer(),
-                        new AvroRecordBufferSerializer())
+                        new AvroRecordBufferSerializer(
+                            vc.configuration().getSinkConfiguration(name, KafkaSinkConfiguration.class).mode,
+                            schemaRegistry.getSchemaBySinkName(name)
+                        ))
                 );
     }
 
