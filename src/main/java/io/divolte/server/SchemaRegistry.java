@@ -36,7 +36,6 @@ public class SchemaRegistry {
             .filter(config -> config.schemaFile.isPresent())
             .map(config -> Maps.immutableEntry(config.schemaFile.get(), config.schemaId))
             .collect(MoreCollectors.toImmutableMap());
-                ImmutableMap.copyOf(Maps.transformValues(mappings, config -> config.schemaId));
 
         // Load the actual schemas. Once.
         logger.debug("Loading schemas for mappings: {}", schemaLocationsByMapping.keySet());
