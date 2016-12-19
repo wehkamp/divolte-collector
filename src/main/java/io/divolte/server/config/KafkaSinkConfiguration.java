@@ -12,6 +12,7 @@ import java.util.Optional;
 @ParametersAreNonnullByDefault
 public class KafkaSinkConfiguration extends SinkConfiguration {
     private static final String DEFAULT_TOPIC = "divolte";
+    private static final KafkaSinkMode DEFAULT_SINK_MODE = KafkaSinkMode.NAKED;
 
     public final String topic;
     public final KafkaSinkMode mode;
@@ -21,7 +22,7 @@ public class KafkaSinkConfiguration extends SinkConfiguration {
     KafkaSinkConfiguration(@JsonProperty(defaultValue=DEFAULT_TOPIC) final String topic, @JsonProperty final KafkaSinkMode mode) {
         // TODO: register a custom deserializer with Jackson that uses the defaultValue property from the annotation to fix this
         this.topic = Optional.ofNullable(topic).orElse(DEFAULT_TOPIC);
-        this.mode = Optional.ofNullable(mode).orElse(KafkaSinkMode.NAKED);
+        this.mode = Optional.ofNullable(mode).orElse(DEFAULT_SINK_MODE);
     }
 
     @Override
