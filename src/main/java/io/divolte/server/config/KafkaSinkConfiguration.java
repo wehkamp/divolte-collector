@@ -31,6 +31,6 @@ public class KafkaSinkConfiguration extends SinkConfiguration {
 
     @Override
     public SinkFactory getFactory() {
-        return KafkaFlushingPool::new;
+        return KafkaFlushingPool::createPool;
     }
 }

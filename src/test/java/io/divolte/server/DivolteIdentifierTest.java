@@ -58,6 +58,7 @@ public class DivolteIdentifierTest {
         DivolteIdentifier value = DivolteIdentifier.tryParse(stringValue).get();
         assertEquals(42, value.timestamp);
         assertEquals('0', value.version);
+        assertEquals("5mRCeUO4p2_6R7u1m9ZoxXG2AfBeJeHD", value.getId());
         assertEquals(stringValue, value.value);
     }
 }
