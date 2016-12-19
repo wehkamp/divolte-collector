@@ -110,7 +110,6 @@ public class ValidatedConfigurationTest {
         final ValidatedConfiguration vc = new ValidatedConfiguration(() -> ConfigFactory.parseResources("kafka-sink-confluent-without-schema.conf"));
         assertFalse(vc.isValid());
         assertEquals(1, vc.errors().size());
-        System.out.println(vc.errors().get(0));
         assertTrue(
             vc.errors()
             .get(0)
