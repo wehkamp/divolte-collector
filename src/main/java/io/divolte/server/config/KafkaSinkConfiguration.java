@@ -3,7 +3,7 @@ package io.divolte.server.config;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
-import io.divolte.server.kafka.KafkaFlushingPool;
+import io.divolte.server.kafka.KafkaFlushingPoolFactory;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.ParametersAreNullableByDefault;
@@ -32,6 +32,6 @@ public class KafkaSinkConfiguration extends SinkConfiguration {
 
     @Override
     public SinkFactory getFactory() {
-        return KafkaFlushingPool::createPool;
+        return new KafkaFlushingPoolFactory();
     }
 }
