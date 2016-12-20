@@ -34,7 +34,7 @@ public class SchemaRegistry {
             mappings.values()
             .stream()
             .filter(config -> config.schemaFile.isPresent())
-            .map(config -> Maps.immutableEntry(config.schemaFile.get(), config.schemaId))
+            .map(config -> Maps.immutableEntry(config.schemaFile.get(), config.confluentId))
             .collect(MoreCollectors.toImmutableMap());
 
         // Load the actual schemas. Once.
