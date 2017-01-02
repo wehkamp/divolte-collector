@@ -45,7 +45,7 @@ public class SchemaRegistry {
                                         .distinct()
                                         .map(schemaLocation -> {
                                             Schema schema = loadSchema(schemaLocation);
-                                            Optional<Integer> schemaId = schemaIdsByLocation.get(schemaLocation);
+                                            Optional<Integer> schemaId = schemaLocation.flatMap(schemaIdsByLocation::get);
                                             return Maps.immutableEntry(schemaLocation, new DivolteSchema(schemaId, schema));
                                         })
                                         .collect(MoreCollectors.toImmutableMap());
